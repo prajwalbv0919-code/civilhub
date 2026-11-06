@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CivilHub — Practical tools for civil engineers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=6" />
+  <script>
+    try { document.documentElement.dataset.theme = JSON.parse(localStorage.getItem('ch:theme')) || 'dark'; } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#/dashboard">
+        <span class="brand-mark">
+          <svg viewBox="0 0 32 32" width="30" height="30" fill="none">
+            <defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb547"/><stop offset="1" stop-color="#ff6a3d"/></linearGradient></defs>
+            <rect x="1" y="1" width="30" height="30" rx="9" fill="url(#bm)"/>
+            <path d="M8 23V13l8-5 8 5v10" stroke="#1a1206" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M12 23v-6h8v6M8 17.5h16" stroke="#1a1206" stroke-width="2.2" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="brand-text"><b>CivilHub</b><small>Build smarter</small></span>
+      </a>
+      <nav id="nav" class="nav"></nav>
+      <div class="side-foot">
+        <div class="side-card">
+          <div class="side-card-title"><span class="dot live"></span> Client-side mockup</div>
+          <p>All data comes from <code>js/data.js</code>. Your work saves in this browser.</p>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-wrap">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu"></button>
+        <div class="crumbs" id="crumbs"></div>
+        <button class="search-trigger" id="searchBtn">
+          <span class="st-icon"></span>
+          <span class="st-text">Search tools, IS codes, BOQ items…</span>
+          <kbd>⌘K</kbd>
+        </button>
+        <div class="top-actions">
+          <span class="pill" data-tip="Sample market rates for India, 2026">₹ INR · IS Codes</span>
+          <button class="icon-btn" id="themeBtn" data-tip="Switch light / dark theme" aria-label="Theme"></button>
+          <div class="avatar" data-tip="Guest workspace">G</div>
+        </div>
+      </header>
+      <main id="main" class="main"></main>
+    </div>
+  </div>
+
+  <!-- Command palette -->
+  <div class="palette" id="palette" hidden>
+    <div class="palette-card">
+      <div class="palette-input"><span class="pi-icon"></span><input id="paletteInput" placeholder="Type a tool, IS code, formula or BOQ item…" autocomplete="off" /><kbd>ESC</kbd></div>
+      <div class="palette-list" id="paletteList"></div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-card">
+      <button class="icon-btn modal-close" aria-label="Close"></button>
+      <div class="modal-body"></div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts"></div>
+
+  <!-- App scripts (classic scripts so the page also works from file://) -->
+  <script src="js/data.js?v=3"></script>
+  <script src="js/core.js?v=5"></script>
+  <script src="js/three-scenes.js?v=3"></script>
+  <script src="js/views/dashboard.js"></script>
+  <script src="js/views/estimation.js"></script>
+  <script src="js/views/materials.js"></script>
+  <script src="js/views/boq.js"></script>
+  <script src="js/views/rate.js"></script>
+  <script src="js/views/measure.js?v=6"></script>
+  <script src="js/views/rcc.js"></script>
+  <script src="js/views/units.js"></script>
+  <script src="js/views/resources.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Three.js from CDN -->
+  <script type="importmap">
+    { "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    window.THREE = Object.assign({}, THREE, { OrbitControls });
+    window.dispatchEvent(new Event('three-ready'));
+  </script>
+</body>
+</html>
